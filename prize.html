@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>谁是幸运儿？！</title>
+  <link rel="stylesheet" href="./static/css/prize.css">
+  <script src="./static/js/jquery.js"></script>
+  <script type="text/javascript" src="./static/js/easing.js"></script>
+  <script src="./static/js/prize.js"></script>
+</head>
+<body>
+  <div id="toast"></div>
+  <audio id="audio" src="./static/music/bgm.mp3" loop="loop"></audio> 
+  <div class="wrapper">
+    <span id="fullscreen-btn">全屏</span>
+    <img id="dialog" alt="" />
+    <div class="tiger">
+      <span id="reset" onclick="reset(true)">重置</span>
+      <!-- <div class="tiger-title"><img src="./static/images/prize/title.png" alt="" /></div> -->
+      <div class="prize-container">
+        <img src="./static/images/prize/line.png" alt="" />
+        <div id="winner">
+          <img onclick="showHistoryList()" src="./static/images/prize/winner_num.png" alt="" />
+          <ul></ul>
+        </div>
+        <div id="prizes">
+          <div class="flexBox">
+              <img src="./static/images/prize/one.png" data-src="./static/images/prize/one_big.png" alt="" />
+              <p>一等奖</p>
+          </div>
+          <div class="flexBox">
+              <img src="./static/images/prize/two.png"  data-src="./static/images/prize/two_big.png" alt="" />
+              <p>二等奖</p>
+          </div>
+          <div class="flexBox">
+              <img src="./static/images/prize/three.png" data-src="./static/images/prize/three_big.png" alt="" />
+              <p>三等奖</p>
+          </div>
+        </div>
+      </div>
+      <div class="tiger-container">
+          <div id="config">
+            <div class="flexBox">
+              <select id="select-prize" class="select input" onchange="changePrize()">
+                <option value="1" selected="selected">一等奖</option>
+                <option value="2">二等奖</option>
+                <option value="3">三等奖</option>
+              </select>
+            </div>
+            <div class="flexBox">
+              <input type="number" value="1" max="5" min="1" class="input" id="select-times" onchange="changeTimes()" />
+            </div>
+            <div class="flexBox">
+              <input type="number" value="100" max="999" min="10" class="input" id="select-number" onchange="changeNum()"/>
+            </div>
+            <div id="submit" onclick="submit()"><img src="./static/images/prize/submit.png" alt="" /></div>
+          </div>
+          <div id="tiger">
+            <div class="mask">
+                <div class="num"></div>
+                <div class="num"></div>
+                <div class="num"></div>
+            </div>
+          </div>
+          <div id="tiger-tools">
+            <div class="tiger-control">
+              <img src="./static/images/prize/tiger_on.png" class="select-img" alt="" />
+              <img src="./static/images/prize/tiger_off.png" alt="" />
+            </div>
+            <div class="btn" id="tiger-on"><img src="./static/images/prize/start.png" alt="" /></div>
+            <div class="btn" id="stop"><img src="./static/images/prize/stop.png" alt="" /></div>
+          </div>
+        </div>
+        
+      </div>
+  </div>
+   
+   <script>
+     var STATE_ENUM = {
+       pending: 1,
+       running: 2,
+       prizing: 3,
+     }
+
+      var u = 269.8;
+      var isBegin = false;
+      var state = STATE_ENUM.pending;
+      var oWinner = $('#winner');
+      var oControl = $('.tiger-control');
+      var cnt = 1;
+      var results = '';
+      var timer = null;
+      var historyList = '';
+      var oAudio = $('#audio')[0]
+      function showHistoryList() {
+        var oUl = oWinner.find('ul');
+        oUl.children().remove();
+        oUl.prepend(historyList);
+      }
+      function playBgm () {
+        oAudio.play();
+      }
+      function stopBgm () {
+        oAudio.pause();
+        oAudio.currentTime = 0;
+      }
+      function prizeStart () {
+        if(isBegin) return false;
+          isBegin = true;
+          $(".num").css('backgroundPositionY',0);
+          var result = numRand();
+          if(result === 0) {
+            isBegin = false;
+            state = STATE_ENUM.pending;
+            clearInterval(timer);
+            $('.num').removeClass('num-ani');
+            return false
+          }
+          if (result < 10) {
+            result = '00' + String(result)
+          } else if (result < 100) {
+            result = '0' + String(result)
+          }
+          results = `<li><span>${result}</span><span>······</span><span>${getPrizeLevelText()}</span></li>`
+          historyList = results + historyList;
+          var num_arr = (result+'').split('');
+          $(".num").each(function(index){
+            var _num = $(this);
+            setTimeout(function(){
+              $('.num').removeClass('num-ani');
+              _num.animate({ 
+                backgroundPositionY: (u*60) - (u*num_arr[index])
+              },{
+                duration: 200+ index * 300,
+                easing: "easeInOutCirc",
+                complete: function(){
+                  if(index==2) {
+                    isBegin = false;
+                    oWinner.find('ul').prepend(results);
+                    cnt = cnt - 1;
+                    if (cnt > 0) {
+                      setTimeout(function(){
+                        prizeStart();
+                      }, 200)
+                    } else {
+                      clearInterval(timer);
+                      state = STATE_ENUM.pending;
+                      stopBgm();
+                    }
+                  }
+                }
+              });
+            }, 200);
+          });
+      }
+
+      $(function() {
+        reset()
+        $('#fullscreen-btn').click(function(){
+          const ele = document.documentElement || document.body;
+          try {
+            ele.requestFullscreen();
+          } catch(e) {}
+          try {
+            ele.webkitRequestFullscreen();
+          } catch(e) {}
+          try {
+            ele.mozRequestFullScreen();
+          } catch(e) {}
+          try {
+            ele.webkitRequestFullScreen();
+          } catch(e) {}
+        })
+        $("#prizes img").click(function(){
+          $('#dialog').attr('src', $(this).attr('data-src')).show();
+        })
+        $('#dialog').click(function(){
+          $(this).hide();
+        })
+        $('#tiger-on').click(function(){
+          if (state !== STATE_ENUM.pending) {
+            return false
+          }
+          var oImg = $(this).find('img')
+          oImg.addClass('scale');
+          setTimeout(function(){
+            oImg.removeClass('scale')
+          }, 300)
+          playBgm();
+          state = STATE_ENUM.running;
+          results = '';
+          oWinner.find('ul').children().remove();
+          timer && clearInterval(timer);
+          timer = setInterval(function(){
+            oControl.find('.select-img').removeClass('select-img').siblings().addClass('select-img')
+          }, 100);
+          $('.num').addClass('num-ani');
+        })
+        $('#stop').click(function(){
+          if(state !== STATE_ENUM.running) {
+            return false
+          }
+          var oImg = $(this).find('img')
+          oImg.addClass('scale');
+          setTimeout(function(){
+            oImg.removeClass('scale')
+          }, 300)
+
+          cnt = Number(localStorage.getItem('times'));
+          state = STATE_ENUM.prizing;
+          prizeStart();
+        })
+      })
+   
+   
+   </script>
+</body>
+</html> 

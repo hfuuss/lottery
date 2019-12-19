@@ -1,0 +1,342 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+img {
+  border: 0;
+}
+html, body{
+  height: 100%;
+}
+.tiger-title {
+  position: absolute;
+  top: -88px;
+  left: 10px;
+  z-index: 500;
+}
+.tiger-title img{
+  height: 57px;
+}
+#reset {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  color: #011587;
+  cursor: pointer;
+}
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url('../images/prize/banner.png') no-repeat center / cover;
+}
+#winner {
+  position: absolute;
+  top: 0;
+  left: 16px;
+  right: 16px;
+  background: url('../images/prize/winner.png') no-repeat center / cover;
+  height: 63.65159128978225%;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 20.384615384615384%;
+}
+#winner img {
+  width: 71.53846153846154%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 7.631578947368421%;
+}
+
+#winner ul {
+  position: absolute;
+  bottom: 57px;
+  left: 0;
+  right: 0;
+  top: 28.384615384615384%;
+  overflow: auto;
+}
+#winner ul::-webkit-scrollbar {
+  display: none;
+}
+#winner li {
+  width: 73.53846153846154%;
+  display: flex;
+  margin: auto;
+}
+#winner li span{
+  display: block;
+  white-space: nowrap;
+  color: #ff581e;
+  font-size: 22px;
+  line-height: 38px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+#winner li span:nth-of-type(2){
+  display: block;
+  padding-left: 30px;
+  color: #FF946F;
+  flex-grow: 1;
+  text-align: center;
+}
+#toast {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 140px;
+  border-radius:10px;
+  padding-top: 100px;
+  background:#0D175B;
+  opacity: 0.8;
+  text-align:center;
+  font-size: 26px;
+  line-height: 40px;
+  color:#fff;
+  z-index: 999;
+}
+#prizes {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  left: 16px;
+  right: 16px;
+  padding-top: 13px;
+  justify-content: space-around;
+  background: url('../images/prize/prize_banner.png') no-repeat center / 100% 100%;
+  height: 30.342105263157895%;
+  box-sizing: border-box;
+}
+#prizes .flexBox {
+  width: 26.92307692307692%;
+}
+#prizes .flexBox img{
+  width: 100%;
+}
+#prizes .flexBox p{
+  text-align: center;
+  font-weight: 500;
+  font-size: 26px;
+  color: #fff;
+}
+.tiger {
+  position: relative;
+  width: 1456px;
+  height: 760px;
+  display: flex;
+  justify-content: space-around;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  background: url('../images/prize/tiger.png') no-repeat center / 100% 100%;
+}
+#tiger {
+  position: absolute;
+  top: 121px;
+  left: 5px;
+  right: 5px;
+  padding-left: 91px;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 49.56896551724138%;
+  background: url('../images/prize/box.png') no-repeat center / 100% 100%;
+}
+#tiger .mask {
+  height: 212px;
+  margin-top: 54px;
+  overflow: hidden;
+  position: relative;
+}
+#dialog {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 700px;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+.tiger-container {
+  width: 705px;
+  margin-top: 92px;
+  margin-right: 75px;
+  margin-bottom: 71px;
+  overflow: hidden;
+  position: relative;
+}
+.prize-container {
+  position: relative;
+  width: 37.91208791208791%;
+  margin-top: 92px;
+  margin-bottom: 71px;
+}
+.prize-container img {
+  width: 100%;
+}
+.tiger-on {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  height: 40px;
+  width: 100px;
+  z-index: 100;
+  background: #00f;
+  margin-left: -50px;
+}
+.num{
+  background:url('../images/prize/num.png') top center repeat-y;
+  width: 116px;
+  height: 269.8px;
+  float:left;
+  overflow: hidden;
+  transform: translateY(-30px)
+}
+.num:nth-of-type(2) {
+  margin: 0 92px;
+}
+#config {
+  display: flex;
+  background: url("../images/prize/choose_banner.png") no-repeat center / 100%;
+  height: 13.448275862068965%;
+  width: 100%;
+  padding: 0 18px;
+  box-sizing: border-box;
+  overflow: visible;
+  justify-content: space-between;
+  align-items: center;
+}
+#config .flexBox {
+  height: 62.82051282051282%;
+  box-sizing: border-box;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+#config .flexBox:nth-of-type(1){
+  background: url('../images/prize/kind.png') no-repeat center / 100%;
+  width: 27.94326241134752%;
+}
+#config .flexBox:nth-of-type(2){
+  background: url('../images/prize/times.png') no-repeat center / 100%;
+  width: 21.27659574468085%;
+  
+}
+#config .flexBox:nth-of-type(3){
+  background: url('../images/prize/total.png') no-repeat center / 100%;
+  width: 24.25531914893617%;
+  
+}
+#submit {
+  width: 13.75886524822695%;
+}
+#submit img {
+  width: 100%;
+}
+#select-prize {
+  width: auto;
+}
+#select-prize, .input {
+  background: transparent;
+  overflow: visible;
+  border: none;
+  outline: none;
+  padding-right: 10px; 
+  font-size: 24px;
+  font-weight: bold;
+  color: rgba(0,16,123,1);
+}
+#tiger-tools {
+  display: flex;
+  background: url('../images/prize/control.png') no-repeat center / 100%;
+  height: 106px;
+  position: absolute;
+  bottom: 0;
+  left: 5px;
+  right: 5px;
+  padding-right: 42px;
+}
+.tiger-control {
+  width: 121px;
+  height: 63px;
+  margin-left: 169px;
+  margin-right: auto;
+  position: relative;
+}
+.tiger-control img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  bottom: 0;
+}
+.input {
+  display: inline-block;
+  width: 39%;
+  text-align: right;
+}
+.btn {
+  width: 102px;
+  margin-top: 8px;
+  margin-right: 18px;
+}
+.btn img {
+  width: 100%;
+  height: auto;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+.scale {
+  animation: btn_active_ani 0.3s linear;
+}
+
+#fullscreen-btn {
+  position: fixed;
+  right: 0;
+  top: 0;
+  color: #fff;
+  cursor: pointer;
+}
+.select-img {
+  display: none;
+}
+.num-ani {
+  animation: num_ani 0.6s linear infinite;
+}
+@keyframes btn_active_ani {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.6);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes num_ani {
+  0% {
+    background-position-y: 0;
+  }
+  100% {
+    background-position-y: -2698px;
+  }
+}
